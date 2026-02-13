@@ -52,8 +52,8 @@ Choose one
 
 - Access url http://127.0.0.1:5000/docs/index.html
 
+  <img width="auto" alt="image" src="https://github.com/user-attachments/assets/5dbd14a8-eb04-48c7-a0a6-1e5bb47cbdb6" />
 
-  <img width="auto" alt="Screenshot 2025-02-04 at 14 18 01" src="https://github.com/user-attachments/assets/a071689b-f935-4d13-8042-0f2a386cd288" />
 
 
 
