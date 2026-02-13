@@ -16,6 +16,19 @@ type UserBase struct {
 	Status   bool   `json:"status"`
 }
 
+type AuthRequest struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type AuthResponse struct {
+	ID       string `gorm:"type:uuid;default:gen_random_uuid()" json:"id"`
+	Fullname string `json:"fullname"`
+	Username string `json:"username"`
+	Role     string `json:"role"`
+	Token    string `json:"token"`
+}
+
 // TableName is Database TableName of this model
 func (e *User) TableName() string {
 	return "user"

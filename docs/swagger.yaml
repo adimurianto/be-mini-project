@@ -9,6 +9,13 @@ definitions:
       status:
         type: boolean
     type: object
+  models.AuthRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   models.UserBase:
     properties:
       fullname:
@@ -27,6 +34,24 @@ info:
   title: MINI PROJECT API
   version: "1.0"
 paths:
+  /api/v1/auth/login:
+    post:
+      parameters:
+      - description: User object to be created
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.AuthRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Auth
   /api/v1/user/:
     get:
       produces:
@@ -36,6 +61,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
       tags:
       - User
     post:
@@ -53,6 +80,13 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
       tags:
       - User
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

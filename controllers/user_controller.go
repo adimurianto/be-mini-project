@@ -8,12 +8,14 @@ import (
 	repository "be-mini-project/repositories"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserController struct{}
 
 // @Tags			User
 // @Produce			json
+// @Security		BearerAuth
 // @Success			200 {object} helpers.Response{}
 // @Router			/api/v1/user/ [get]
 func (ctrl *UserController) GetData(ctx *gin.Context) {
@@ -40,6 +42,7 @@ func (ctrl *UserController) GetData(ctx *gin.Context) {
 
 // @Tags			User
 // @Produce			json
+// @Security		BearerAuth
 // @Param		user	body		models.UserBase	true	"User object to be created"
 // @Success			201 {object} helpers.Response{}
 // @Router			/api/v1/user/ [post]
@@ -51,15 +54,22 @@ func (ctrl *UserController) CreateData(ctx *gin.Context) {
 		return
 	}
 
+	// Hash Password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(body.Password), bcrypt.DefaultCost)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+
 	var newUser models.User
 	newUser.Fullname = body.Fullname
 	newUser.Username = body.Username
-	newUser.Password = body.Password
+	newUser.Password = string(hashedPassword)
 	newUser.Role = body.Role
 	newUser.Status = body.Status
 
-	err := repository.Save(&newUser)
-	if err != nil {
+	errSave := repository.Save(&newUser)
+	if errSave != nil {
 		ctx.JSON(http.StatusInternalServerError, helpers.Response{
 			Code:    http.StatusInternalServerError,
 			Status:  false,

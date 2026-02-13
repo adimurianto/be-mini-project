@@ -20,6 +20,7 @@ func RegisterRoutes(route *gin.Engine) {
 	route.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	apiVersion := "/api/v1/"
+	routersGroup.AuthRoutes(route, apiVersion)
 	routersGroup.UserRoutes(route, apiVersion)
 	//Add All route
 }
