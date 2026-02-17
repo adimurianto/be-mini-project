@@ -22,5 +22,10 @@ func RegisterRoutes(route *gin.Engine) {
 	apiVersion := "/api/v1/"
 	routersGroup.AuthRoutes(route, apiVersion)
 	routersGroup.UserRoutes(route, apiVersion)
-	//Add All route
+	routersGroup.CategoryRoutes(route, apiVersion)
+	routersGroup.ProductRoutes(route, apiVersion)
+	routersGroup.SpecialDealsRoutes(route, apiVersion)
+	routersGroup.SpecialDealsItemRoutes(route, apiVersion)
+	routersGroup.BannerRoutes(route, apiVersion)
+	routersGroup.LogoRoutes(route, apiVersion)
 }

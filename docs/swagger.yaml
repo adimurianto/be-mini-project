@@ -16,6 +16,76 @@ definitions:
       username:
         type: string
     type: object
+  models.BannerBase:
+    properties:
+      link:
+        type: string
+      primary_image:
+        type: string
+      secondary_image:
+        type: string
+      status:
+        type: boolean
+      title:
+        type: string
+    type: object
+  models.CategoryBase:
+    properties:
+      icon:
+        type: string
+      name:
+        type: string
+      status:
+        type: boolean
+    type: object
+  models.LogoBase:
+    properties:
+      logo:
+        type: string
+      status:
+        type: boolean
+      title:
+        type: string
+    type: object
+  models.ProductBase:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      status:
+        type: boolean
+    type: object
+  models.SpecialDealsBase:
+    properties:
+      discount:
+        type: integer
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      status:
+        type: boolean
+    type: object
+  models.SpecialDealsItemBase:
+    properties:
+      product_id:
+        type: string
+      quantity:
+        type: integer
+      special_deals_id:
+        type: string
+      status:
+        type: boolean
+    type: object
   models.UserBase:
     properties:
       fullname:
@@ -52,6 +122,186 @@ paths:
             $ref: '#/definitions/helpers.Response'
       tags:
       - Auth
+  /api/v1/banner/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Banner
+    post:
+      parameters:
+      - description: Banner object to be created
+        in: body
+        name: banner
+        required: true
+        schema:
+          $ref: '#/definitions/models.BannerBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Banner
+  /api/v1/category/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Category
+    post:
+      parameters:
+      - description: Category object to be created
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/models.CategoryBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Category
+  /api/v1/logo/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Logo
+    post:
+      parameters:
+      - description: Logo object to be created
+        in: body
+        name: logo
+        required: true
+        schema:
+          $ref: '#/definitions/models.LogoBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Logo
+  /api/v1/product/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Product
+    post:
+      parameters:
+      - description: Product object to be created
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProductBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Product
+  /api/v1/special-deals-item/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Special Deals Item
+    post:
+      parameters:
+      - description: Special Deals Item object to be created
+        in: body
+        name: special_deals_item
+        required: true
+        schema:
+          $ref: '#/definitions/models.SpecialDealsItemBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Special Deals Item
+  /api/v1/special-deals/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Special Deals
+    post:
+      parameters:
+      - description: Special Deals object to be created
+        in: body
+        name: special_deals
+        required: true
+        schema:
+          $ref: '#/definitions/models.SpecialDealsBase'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Special Deals
   /api/v1/user/:
     get:
       produces:
