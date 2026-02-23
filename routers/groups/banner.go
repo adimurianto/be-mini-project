@@ -12,4 +12,6 @@ func BannerRoutes(route *gin.Engine, apiVersion string) {
 	groupRoutes := route.Group(apiVersion)
 	groupRoutes.GET("banner/", ctrl.GetData)
 	groupRoutes.POST("banner/", middleware.AuthMiddleware(), ctrl.CreateData)
+	groupRoutes.PUT("banner/", middleware.AuthMiddleware(), ctrl.UpdateData)
+	groupRoutes.DELETE("banner/:id", middleware.AuthMiddleware(), ctrl.DeleteData)
 }

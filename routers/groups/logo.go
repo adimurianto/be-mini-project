@@ -12,4 +12,6 @@ func LogoRoutes(route *gin.Engine, apiVersion string) {
 	groupRoutes := route.Group(apiVersion)
 	groupRoutes.GET("logo/", ctrl.GetData)
 	groupRoutes.POST("logo/", middleware.AuthMiddleware(), ctrl.CreateData)
+	groupRoutes.PUT("logo/", middleware.AuthMiddleware(), ctrl.UpdateData)
+	groupRoutes.DELETE("logo/:id", middleware.AuthMiddleware(), ctrl.DeleteData)
 }

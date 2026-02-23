@@ -12,4 +12,6 @@ func CategoryRoutes(route *gin.Engine, apiVersion string) {
 	groupRoutes := route.Group(apiVersion)
 	groupRoutes.GET("category/", ctrl.GetData)
 	groupRoutes.POST("category/", middleware.AuthMiddleware(), ctrl.CreateData)
+	groupRoutes.PUT("category/", middleware.AuthMiddleware(), ctrl.UpdateData)
+	groupRoutes.DELETE("category/:id", middleware.AuthMiddleware(), ctrl.DeleteData)
 }

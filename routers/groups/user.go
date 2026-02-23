@@ -12,4 +12,6 @@ func UserRoutes(route *gin.Engine, apiVersion string) {
 	groupRoutes := route.Group(apiVersion)
 	groupRoutes.GET("user/", middleware.AuthMiddleware(), ctrl.GetData)
 	groupRoutes.POST("user/", middleware.AuthMiddleware(), ctrl.CreateData)
+	groupRoutes.PUT("user/", middleware.AuthMiddleware(), ctrl.UpdateData)
+	groupRoutes.DELETE("user/:id", middleware.AuthMiddleware(), ctrl.DeleteData)
 }

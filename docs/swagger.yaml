@@ -4,6 +4,7 @@ definitions:
       code:
         type: integer
       data: {}
+      info: {}
       message:
         type: string
       status:
@@ -14,6 +15,21 @@ definitions:
       password:
         type: string
       username:
+        type: string
+    type: object
+  models.Banner:
+    properties:
+      id:
+        type: string
+      link:
+        type: string
+      primary_image:
+        type: string
+      secondary_image:
+        type: string
+      status:
+        type: boolean
+      title:
         type: string
     type: object
   models.BannerBase:
@@ -29,6 +45,17 @@ definitions:
       title:
         type: string
     type: object
+  models.Category:
+    properties:
+      icon:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      status:
+        type: boolean
+    type: object
   models.CategoryBase:
     properties:
       icon:
@@ -38,6 +65,17 @@ definitions:
       status:
         type: boolean
     type: object
+  models.Logo:
+    properties:
+      id:
+        type: string
+      logo:
+        type: string
+      status:
+        type: boolean
+      title:
+        type: string
+    type: object
   models.LogoBase:
     properties:
       logo:
@@ -46,6 +84,23 @@ definitions:
         type: boolean
       title:
         type: string
+    type: object
+  models.Product:
+    properties:
+      category_id:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+      status:
+        type: boolean
     type: object
   models.ProductBase:
     properties:
@@ -86,6 +141,23 @@ definitions:
       status:
         type: boolean
     type: object
+  models.User:
+    properties:
+      created_at:
+        type: string
+      fullname:
+        type: string
+      id:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      status:
+        type: boolean
+      username:
+        type: string
+    type: object
   models.UserBase:
     properties:
       fullname:
@@ -124,6 +196,23 @@ paths:
       - Auth
   /api/v1/banner/:
     get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
       produces:
       - application/json
       responses:
@@ -152,8 +241,63 @@ paths:
       - BearerAuth: []
       tags:
       - Banner
+    put:
+      parameters:
+      - description: Banner object to be updated
+        in: body
+        name: banner
+        required: true
+        schema:
+          $ref: '#/definitions/models.Banner'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Banner
+  /api/v1/banner/{id}:
+    delete:
+      parameters:
+      - description: Banner ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Banner
   /api/v1/category/:
     get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
       produces:
       - application/json
       responses:
@@ -182,8 +326,63 @@ paths:
       - BearerAuth: []
       tags:
       - Category
+    put:
+      parameters:
+      - description: Category object to be updated
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/models.Category'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Category
+  /api/v1/category/{id}:
+    delete:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Category
   /api/v1/logo/:
     get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
       produces:
       - application/json
       responses:
@@ -212,8 +411,63 @@ paths:
       - BearerAuth: []
       tags:
       - Logo
+    put:
+      parameters:
+      - description: Logo object to be updated
+        in: body
+        name: logo
+        required: true
+        schema:
+          $ref: '#/definitions/models.Logo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Logo
+  /api/v1/logo/{id}:
+    delete:
+      parameters:
+      - description: Logo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Logo
   /api/v1/product/:
     get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
       produces:
       - application/json
       responses:
@@ -236,6 +490,44 @@ paths:
       responses:
         "201":
           description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Product
+    put:
+      parameters:
+      - description: Product object to be updated
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Product
+  /api/v1/product/{id}:
+    delete:
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/helpers.Response'
       security:
@@ -304,6 +596,23 @@ paths:
       - Special Deals
   /api/v1/user/:
     get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
       produces:
       - application/json
       responses:
@@ -328,6 +637,44 @@ paths:
       responses:
         "201":
           description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - User
+    put:
+      parameters:
+      - description: User object to be updated
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - User
+  /api/v1/user/{id}:
+    delete:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/helpers.Response'
       security:
