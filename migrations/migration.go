@@ -17,7 +17,8 @@ func Migrate() {
 
 	var migrationModels = []interface{}{
 		&models.User{},
-		// add other models here
+		&models.Order{},
+		&models.OrderDetail{},
 	}
 	err := database.DB.AutoMigrate(migrationModels...)
 	if err != nil {

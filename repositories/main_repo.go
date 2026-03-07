@@ -199,3 +199,7 @@ func Update(model interface{}) interface{} {
 	err := database.DB.Save(model).Error
 	return err
 }
+
+func BeginTransaction() *gorm.DB {
+	return database.DB.Begin()
+}

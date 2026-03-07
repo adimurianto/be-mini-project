@@ -28,4 +28,5 @@ func RegisterRoutes(route *gin.Engine) {
 	routersGroup.SpecialDealsItemRoutes(route, apiVersion)
 	routersGroup.BannerRoutes(route, apiVersion)
 	routersGroup.LogoRoutes(route, apiVersion)
+	routersGroup.OrderRoutes(route, apiVersion)
 }

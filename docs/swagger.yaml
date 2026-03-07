@@ -85,6 +85,51 @@ definitions:
       title:
         type: string
     type: object
+  models.OrderBase:
+    properties:
+      created_at:
+        type: string
+      fullname:
+        type: string
+      ip_address:
+        type: string
+      phone:
+        type: string
+      status:
+        type: boolean
+      status_payment:
+        type: boolean
+      table:
+        type: string
+      total_price:
+        type: integer
+    type: object
+  models.OrderDetailRequest:
+    properties:
+      price:
+        type: integer
+      product_id:
+        type: string
+      quantity:
+        type: integer
+    type: object
+  models.OrderRequest:
+    properties:
+      fullname:
+        type: string
+      ip_address:
+        type: string
+      order_details:
+        items:
+          $ref: '#/definitions/models.OrderDetailRequest'
+        type: array
+      phone:
+        type: string
+      table:
+        type: string
+      total_price:
+        type: integer
+    type: object
   models.Product:
     properties:
       category_id:
@@ -449,6 +494,94 @@ paths:
       - BearerAuth: []
       tags:
       - Logo
+  /api/v1/order/:
+    get:
+      parameters:
+      - description: 'Sort >> column_name,order | order: pilih ''asc'' atau ''desc'''
+        in: query
+        name: sort
+        type: string
+      - description: Filter >> [column_name,operator,value;.....]
+        in: query
+        name: filter
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: perPage
+        in: query
+        name: perPage
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Order
+    post:
+      parameters:
+      - description: Order object to be created
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/models.OrderRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      tags:
+      - Order
+  /api/v1/order/{id}:
+    delete:
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Order
+    put:
+      parameters:
+      - description: Order ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Order object to be updated
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/models.OrderBase'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/helpers.Response'
+      security:
+      - BearerAuth: []
+      tags:
+      - Order
   /api/v1/product/:
     get:
       parameters:
